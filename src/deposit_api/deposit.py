@@ -19,6 +19,8 @@ class Deposit:
             return True
         
         webbrowser.open_new_tab(AUTH_URL)
+
+        print('If now browser shows up, copy this link and open it in a browser: %s' % AUTH_URL)
         
         try:
             self._api_key = input('Enter your API key: ')
