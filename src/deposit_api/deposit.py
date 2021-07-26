@@ -8,8 +8,9 @@ AUTH_URL = 'http://pdbe-worker-1.ebi.ac.uk:12000/deposition/auth/authenticate'
 NEW_DEP_URL = 'http://pdbe-worker-1.ebi.ac.uk:12000/deposition/api/new'
 
 class Deposit:
-    def __init__(self):
-        pass
+    def __init__(self, email):
+        self._email = email
+        print(self._email)
     
     def new(self):
         self.authenticate()
@@ -17,8 +18,8 @@ class Deposit:
     
     def authenticate(self):
         if os.access(KEY_FILE, os.R_OK):
-            with open(KEY_FILE, encoding='utf-8'):
-                self._api_key = f.read()
+            with open(KEY_FILE, encoding='utf-8') as fp:
+                self._api_key = fp.read()
 
             return True
         
@@ -41,7 +42,9 @@ class Deposit:
             'Authorization': 'Bearer %s' % self._api_key
         }, data={
             'location': 'United Kingdom',
-            'email': 'w3_pdb05@localhost',
+            'email': self._email,
             'password': 'notNeededAnymore',
             'experiments': [{'method': 'xray'}]
         })
+
+        print(r.json())

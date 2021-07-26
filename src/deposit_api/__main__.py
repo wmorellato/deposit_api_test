@@ -11,6 +11,7 @@ def get_parser():
     version = '%(prog)s ' + __version__
     parser.add_argument('--version', '-v', action='version', version=version)
     parser.add_argument('--new-session', action='store_true', dest="new")
+    parser.add_argument('--email', action='store', default='w3_pdb05@localhost', dest="email")
     return parser
 
 def main(args=None):
@@ -27,7 +28,7 @@ def main(args=None):
     args = parser.parse_args(args)
 
     if args.new:
-        d = Deposit()
+        d = Deposit(email=args.email)
         d.new()
 
 
