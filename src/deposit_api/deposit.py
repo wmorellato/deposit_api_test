@@ -39,8 +39,9 @@ class Deposit:
     
     def create_deposition(self):
         r = requests.post(NEW_DEP_URL, headers={
-            'Authorization': 'Bearer %s' % self._api_key
-        }, data={
+            'Authorization': 'Bearer %s' % self._api_key,
+            'content-type': 'application/json',
+        }, json={
             'location': 'United Kingdom',
             'email': self._email,
             'password': 'notNeededAnymore',
